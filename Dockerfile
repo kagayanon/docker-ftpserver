@@ -1,6 +1,6 @@
 # ftp server
 #
-# VERSION               0.0.1
+# VERSION               0.0.2
 #
 # Links:
 # - https://help.ubuntu.com/community/PureFTP
@@ -12,6 +12,7 @@ FROM ubuntu:14.04
 MAINTAINER Jonas Colmsjö "jonas@gizur.com"
 
 RUN apt-get update
+RUN apt-get upgrade -y
 RUN apt-get install -y inetutils-ftp nano wget
 
 
@@ -43,13 +44,13 @@ ADD ./etc-rsyslog.d-50-default.conf /etc/rsyslog.d/50-default.conf
 # Download and build pure-ftp
 # ---------------------------
 
-RUN wget http://download.pureftpd.org/pub/pure-ftpd/releases/pure-ftpd-1.0.36.tar.gz
-RUN tar -xzf pure-ftpd-1.0.36.tar.gz
+RUN wget http://download.pureftpd.org/pub/pure-ftpd/releases/pure-ftpd-1.0.41.tar.gz
+RUN tar -xzf pure-ftpd-1.0.41.tar.gz
 
 RUN apt-get build-dep -y pure-ftpd
 
-RUN cd /pure-ftpd-1.0.36; ./configure optflags=--with-everything --with-privsep --without-capabilities
-RUN cd /pure-ftpd-1.0.36; make; make install
+RUN cd /pure-ftpd-1.0.41; ./configure optflags=--with-everything --with-privsep --without-capabilities
+RUN cd /pure-ftpd-1.0.41; make; make install
 
 
 #
